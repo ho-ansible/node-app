@@ -52,6 +52,14 @@
     path: "{{ node_config_dir }}"
     state: directory
 
+- name: Node.js app | service config
+  tags:
+    - config
+  template:
+    src: node.conf.j2
+    dest: "{{ node_config_dir }}/node.conf"
+  notify: restart node
+
 - name: Node.js app | iptables
   tags:
     - iptables
@@ -63,14 +71,6 @@
     jump: ACCEPT
   loop: [ ipv4, ipv6 ]
   notify: iptables
-
-- name: Node.js app | service config
-  tags:
-    - config
-  template:
-    src: node.conf.j2
-    dest: "{{ node_config_dir }}/node.conf"
-  notify: restart node
 
 - name: Node.js app | systemd service
   tags:
