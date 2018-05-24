@@ -61,17 +61,15 @@
     protocol: tcp
     destination_port: "{{ node_port }}"
     jump: ACCEPT
-  with_items: [ ipv4, ipv6 ]
+  loop: [ ipv4, ipv6 ]
   notify: iptables
 
 - name: Node.js app | service config
   tags:
     - config
   template:
-    src: "{{ item }}.j2"
-    dest: "{{ node_config_dir }}/{{ item }}"
-  with_items:
-    - node.conf
+    src: node.conf.j2
+    dest: "{{ node_config_dir }}/node.conf"
   notify: restart node
 
 - name: Node.js app | systemd service
@@ -80,7 +78,7 @@
   copy:
     src: "{{ item }}"
     dest: /lib/systemd/system/
-  with_items:
+  loop:
     - node.service
     - node@.service
   notify: restart node
@@ -92,6 +90,6 @@
     name: "{{ item }}"
     state: started
     enabled: true
-  with_items:
+  loop:
     - node
     - "node@{{ node_name }}"
