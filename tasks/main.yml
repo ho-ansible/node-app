@@ -28,23 +28,6 @@
     group: "{{ node_user }}"
     recurse: yes
 
-- name: Node.js app | nginx host
-  tags:
-    - config
-  template:
-    src: node.nginx.j2
-    dest: "/etc/nginx/sites-available/node-{{ node_name }}"
-  notify: restart nginx
-
-- name: Node.js app | enable nginx host
-  tags:
-    - config
-  file:
-    src: "/etc/nginx/sites-available/node-{{ node_name }}"
-    dest: "/etc/nginx/sites-enabled/node-{{ node_name }}"
-    state: link
-  notify: restart nginx
-
 - name: Node.js app | config dir
   tags:
     - dir
@@ -59,6 +42,12 @@
     src: node.conf.j2
     dest: "{{ node_config_dir }}/node.conf"
   notify: restart node
+
+- name: Node.js app | nginx site
+  include_role:
+    name: nginx
+    tasks_from: site.yml
+  loop: [ "node-{{ node_name }}" ]
 
 - name: Node.js app | iptables
   tags:
