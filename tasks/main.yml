@@ -44,10 +44,11 @@
   notify: restart node
 
 - name: Node.js app | nginx site
+  vars: 
+    item: node
   include_role:
     name: nginx
     tasks_from: site.yml
-  loop: [ "node-{{ node_name }}" ]
 
 - name: Node.js app | iptables
   tags:
