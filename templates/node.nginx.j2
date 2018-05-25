@@ -1,6 +1,8 @@
 server {
-  listen {{ node_port }} ssl http2;
-  listen [::]:{{ node_port }} ssl http2;
+{% for listen in node_listen %}
+  listen {{ listen }};
+{% endfor %}
+
   server_name {{ node_hostname }};
 
   location / {

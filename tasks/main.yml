@@ -50,18 +50,6 @@
     name: nginx
     tasks_from: site.yml
 
-- name: Node.js app | iptables
-  tags:
-    - iptables
-  iptables:
-    ip_version: "{{ item }}"
-    chain: INPUT
-    protocol: tcp
-    destination_port: "{{ node_port }}"
-    jump: ACCEPT
-  loop: [ ipv4, ipv6 ]
-  notify: iptables
-
 - name: Node.js app | systemd service
   tags:
     - systemd
