@@ -45,7 +45,7 @@
 
 - name: Node.js app | nginx site
   vars: 
-    item: node
+    site: node
   include_role:
     name: nginx
     tasks_from: site.yml
