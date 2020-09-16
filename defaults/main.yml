@@ -8,4 +8,3 @@ node_listen:
   - "[::]:443 ssl http2"
 node_localport: 8080
 node_user: node
-node_config_dir: "/etc/systemd/system/node@{{ node_name }}.service.d/"

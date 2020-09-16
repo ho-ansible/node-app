@@ -28,11 +28,11 @@
     group: "{{ node_user }}"
     recurse: yes
 
-- name: Node.js app | config dir
+- name: Node.js app | service config dir
   tags:
     - dir
   file:
-    path: "{{ node_config_dir }}"
+    path: "{{ node_systemd_conf | dirname }}"
     state: directory
 
 - name: Node.js app | service config
@@ -40,7 +40,7 @@
     - config
   template:
     src: node.conf.j2
-    dest: "{{ node_config_dir }}/node.conf"
+    dest: "{{ node_systemd_conf }}"
   notify: restart node
 
 - name: Node.js app | nginx site

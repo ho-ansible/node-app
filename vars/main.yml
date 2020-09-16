@@ -1,0 +1,2 @@
+---
+node_systemd_conf: "/etc/systemd/system/node@{{ node_name }}.service.d/node.conf"

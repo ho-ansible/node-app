@@ -1,4 +1,23 @@
 ---
+galaxy_info:
+  author: Sean Ho
+  description: Node.js webapp
+  company: Anchorlytics Consulting
+  license: MIT
+
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Debian
+    versions:
+    - 9
+
+  galaxy_tags:
+  - www
+  - webapp
+  - node
+  - nodejs
+
 dependencies:
-  - { role: nodejs, tags: [node, nodejs] }
-  - { role: nginx, tags: [nginx, www] }
+- role: nodejs
+- role: nginx
