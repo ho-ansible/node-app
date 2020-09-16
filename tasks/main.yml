@@ -2,7 +2,7 @@
 
 - name: Node.js app | user
   tags:
-    - user
+  - user
   user:
     name: "{{ node_user }}"
     groups: "www-data"
@@ -11,8 +11,8 @@
 
 - name: Node.js app | git clone
   tags:
-    - package
-    - git
+  - package
+  - git
   git:
     repo: "{{ node_repo }}"
     dest: "/home/{{ node_user }}/{{ node_name }}"
@@ -21,7 +21,7 @@
 
 - name: Node.js app | repo perms
   tags:
-    - permissions
+  - permissions
   file:
     path: "/home/{{ node_user }}/{{ node_name }}"
     owner: "{{ node_user }}"
@@ -30,14 +30,14 @@
 
 - name: Node.js app | service config dir
   tags:
-    - dir
+  - dir
   file:
     path: "{{ node_systemd_conf | dirname }}"
     state: directory
 
 - name: Node.js app | service config
   tags:
-    - config
+  - config
   template:
     src: node.conf.j2
     dest: "{{ node_systemd_conf }}"
@@ -52,22 +52,23 @@
 
 - name: Node.js app | systemd service
   tags:
-    - systemd
+  - systemd
   copy:
     src: "{{ item }}"
     dest: /lib/systemd/system/
   loop:
-    - node.service
-    - node@.service
+  - node.service
+  - node@.service
   notify: restart node
 
 - name: Node.js app | service
   tags:
-    - service
+  - service
   service:
     name: "{{ item }}"
     state: started
     enabled: true
   loop:
-    - node
-    - "node@{{ node_name }}"
+  - node
+  - node@{{ node_name }}
+
