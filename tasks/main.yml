@@ -46,7 +46,7 @@
 - name: Node.js app | nginx site
   vars: 
     site: "{{ node_name }}"
-    site_cfg: nginx.conf.j2
+    site_cfg: node.nginx.j2
   include_role:
     name: nginx
     tasks_from: site.yml
