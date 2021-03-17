@@ -17,6 +17,7 @@
     repo: "{{ node_repo }}"
     dest: "/home/{{ node_user }}/{{ node_name }}"
     depth: 1
+    force: yes
   notify: restart node
 
 - name: Node.js app | repo perms
