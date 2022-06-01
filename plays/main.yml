@@ -3,7 +3,7 @@
 # Replace 'node' with your own inventory group
 ---
 - name: node-app | node.js web app
-  hosts: node
+  hosts: node_app
   roles:
   - role: node-app
     tags:
